@@ -1,0 +1,158 @@
+{
+  "COMPONENTS": {
+    "FILE_BUBBLE": {
+      "DOWNLOAD": "Боргирӣ кардан",
+      "UPLOADING": "Дар ҳоли боргирӣ..."
+    },
+    "FORM_BUBBLE": {
+      "SUBMIT": "Ирсол кардан"
+    },
+    "MESSAGE_BUBBLE": {
+      "RETRY": "Фиристодани дубораи паём",
+      "ERROR_MESSAGE": "Ирсол нашуд, лутфан дубора санҷед"
+    }
+  },
+  "THUMBNAIL": {
+    "AUTHOR": {
+      "NOT_AVAILABLE": "Дастнорас"
+    }
+  },
+  "TEAM_AVAILABILITY": {
+    "ONLINE": "Мо дар шабака ҳастем",
+    "OFFLINE": "Дар айни ҳол мо дар шабака нестем",
+    "BACK_AS_SOON_AS_POSSIBLE": "Дар зудтарин фурсат бармегардем"
+  },
+  "REPLY_TIME": {
+    "IN_A_FEW_MINUTES": "Одатан дар чанд дақиқа посух медиҳем",
+    "IN_A_FEW_HOURS": "Одатан дар чанд соат посух медиҳем",
+    "IN_A_DAY": "Одатан дар давоми 1 рӯз посух медиҳем",
+    "BACK_IN_HOURS": "Баъд аз {n} соат бармегардем",
+    "BACK_IN_MINUTES": "Баъд аз {time} дақиқа бармегардем",
+    "BACK_AT_TIME": "Соати {time} фаъол мешавем",
+    "BACK_ON_DAY": "Рӯзи {day} фаъол мешавем",
+    "BACK_TOMORROW": "Пагоҳ фаъол мешавем",
+    "BACK_IN_SOME_TIME": "Ба зудӣ фаъол мешавем"
+  },
+  "DAY_NAMES": {
+    "SUNDAY": "Якшанбе",
+    "MONDAY": "Душанбе",
+    "TUESDAY": "Сешанбе",
+    "WEDNESDAY": "Чоршанбе",
+    "THURSDAY": "Панҷшанбе",
+    "FRIDAY": "Ҷумъа",
+    "SATURDAY": "Шанбе"
+  },
+  "START_CONVERSATION": "Оғози сӯҳбат",
+  "END_CONVERSATION": "Анҷоми сӯҳбат",
+  "CONTINUE_CONVERSATION": "Идомаи сӯҳбат",
+  "YOU": "Шумо",
+  "START_NEW_CONVERSATION": "Сӯҳбати нав",
+  "VIEW_UNREAD_MESSAGES": "Шумо паёмҳои нохонда доред",
+  "UNREAD_VIEW": {
+    "VIEW_MESSAGES_BUTTON": "Дидани паёмҳои нав",
+    "CLOSE_MESSAGES_BUTTON": "Пӯшидан",
+    "COMPANY_FROM": "аз",
+    "BOT": "Бот"
+  },
+  "BUBBLE": {
+    "LABEL": "Бо мо сӯҳбат кунед"
+  },
+  "POWERED_BY": "Axioma — Платформаи иртиботӣ",
+  "EMAIL_PLACEHOLDER": "Лутфан, почтаи худро ворид кунед",
+  "CHAT_PLACEHOLDER": "Паёми худро нависед...",
+  "TODAY": "Имрӯз",
+  "YESTERDAY": "Дирӯз",
+  "PRE_CHAT_FORM": {
+    "FIELDS": {
+      "FULL_NAME": {
+        "LABEL": "Ному насаб",
+        "PLACEHOLDER": "Ному насаби худро ворид кунед",
+        "REQUIRED_ERROR": "Ворид кардани ном ҳатмист"
+      },
+      "EMAIL_ADDRESS": {
+        "LABEL": "Почтаи электронӣ",
+        "PLACEHOLDER": "Суроғаи почтаи худро ворид кунед",
+        "REQUIRED_ERROR": "Ворид кардани почта ҳатмист",
+        "VALID_ERROR": "Лутфан, суроғаи дурусти почтаро ворид кунед"
+      },
+      "PHONE_NUMBER": {
+        "LABEL": "Рақами телефон",
+        "PLACEHOLDER": "Рақами телефони худро ворид кунед",
+        "REQUIRED_ERROR": "Ворид кардани рақами телефон ҳатмист",
+        "DIAL_CODE_VALID_ERROR": "Лутфан, рамзи кишварро интихоб кунед",
+        "VALID_ERROR": "Лутфан, рақами дурусти телефонро ворид кунед",
+        "DROPDOWN_EMPTY": "Ҳеҷ чиз ёфт нашуд",
+        "DROPDOWN_SEARCH": "Ҷустуҷӯи кишвар"
+      },
+      "MESSAGE": {
+        "LABEL": "Паём",
+        "PLACEHOLDER": "Паёми худро нависед",
+        "ERROR": "Паём хеле кӯтоҳ аст"
+      }
+    },
+    "CAMPAIGN_HEADER": "Пеш аз оғози сӯҳбат ном ва почтаи худро ворид кунед",
+    "IS_REQUIRED": "ҳатмӣ аст",
+    "REQUIRED": "Ҳатмӣ",
+    "REGEX_ERROR": "Лутфан, маълумоти дурустро ворид кунед"
+  },
+  "FILE_SIZE_LIMIT": "Андозаи файл аз ҳадди {MAXIMUM_FILE_UPLOAD_SIZE} зиёд аст",
+  "CHAT_FORM": {
+    "INVALID": {
+      "FIELD": "Майдони нодуруст"
+    }
+  },
+  "EMOJI": {
+    "PLACEHOLDER": "Ҷустуҷӯи эмодзӣ",
+    "NOT_FOUND": "Эмодзии мувофиқ ёфт нашуд",
+    "ARIA_LABEL": "Интихоби эмодзӣ"
+  },
+  "EMOJI_ICON_PICKER": {
+    "SEARCH_EMOJI": "Ҷустуҷӯи эмодзӣ...",
+    "FREQUENTLY_USED": "Аз ҳама бештар истифодашуда",
+    "NO_EMOJI": "Эмодзӣ ёфт нашуд"
+  },
+  "CSAT": {
+    "TITLE": "Хизматрасониро баҳо диҳед",
+    "SUBMITTED_TITLE": "Барои баҳодиҳӣ ташаккур!",
+    "PLACEHOLDER": "Фикри худро муфассал нависед..."
+  },
+  "EMAIL_TRANSCRIPT": {
+    "BUTTON_TEXT": "Дархости таърихи сӯҳбат",
+    "SEND_EMAIL_SUCCESS": "Таърихи сӯҳбат бомуваффақият фиристода шуд",
+    "SEND_EMAIL_ERROR": "Хатогӣ рух дод, лутфан дубора санҷед"
+  },
+  "INTEGRATIONS": {
+    "DYTE": {
+      "CLICK_HERE_TO_JOIN": "Барои пайваст шудан инҷоро пахш кунед",
+      "LEAVE_THE_ROOM": "Тарк кардани занг"
+    }
+  },
+  "PORTAL": {
+    "POPULAR_ARTICLES": "Мақолаҳои машҳур",
+    "VIEW_ALL_ARTICLES": "Ҳамаи мақолаҳо",
+    "IFRAME_LOAD_ERROR": "Ҳангоми боргирии мақола хатогӣ рух дод."
+  },
+  "ATTACHMENTS": {
+    "image": {
+      "CONTENT": "Паёми тасвирӣ"
+    },
+    "audio": {
+      "CONTENT": "Паёми овозӣ"
+    },
+    "video": {
+      "CONTENT": "Паёми видеоӣ"
+    },
+    "file": {
+      "CONTENT": "Файли замимашуда"
+    },
+    "location": {
+      "CONTENT": "Мавқеъ"
+    },
+    "fallback": {
+      "CONTENT": "пайванд фиристод"
+    }
+  },
+  "FOOTER_REPLY_TO": {
+    "REPLY_TO": "Посух ба:"
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "INBOX": {
+    "LIST": {
+      "TITLE": "Паёмҳои воридотии ман",
+      "DISPLAY_DROPDOWN": "Намоиш",
+      "LOADING": "Боргирии огоҳиномаҳо",
+      "404": "Дар ин гурӯҳ огоҳиномаи фаъол нест.",
+      "NO_NOTIFICATIONS": "Огоҳиномаҳо вуҷуд надоранд",
+      "NOTE": "Огоҳиномаҳо аз ҳамаи манбаъҳои пайвастшуда",
+      "NO_MESSAGES_AVAILABLE": "Оҳ! Боргирии паёмҳо ноком шуд",
+      "SNOOZED_UNTIL": "Ба таъхир андохтан то",
+      "SNOOZED_UNTIL_TOMORROW": "Ба таъхир андохтан то пагоҳ",
+      "SNOOZED_UNTIL_NEXT_WEEK": "Ба таъхир андохтан то ҳафтаи оянда"
+    },
+    "ACTION_HEADER": {
+      "SNOOZE": "Ба таъхир андохтани огоҳинома",
+      "DELETE": "Нест кардани огоҳинома",
+      "BACK": "Ба қафо"
+    },
+    "TYPES": {
+      "CONVERSATION_MENTION": "Шуморо дар сӯҳбат ёдовар шуданд",
+      "CONVERSATION_CREATION": "Сӯҳбати нав эҷод шуд",
+      "CONVERSATION_ASSIGNMENT": "Ба шумо сӯҳбат таъин карда шуд",
+      "ASSIGNED_CONVERSATION_NEW_MESSAGE": "Паёми нав дар сӯҳбати таъиншуда",
+      "PARTICIPATING_CONVERSATION_NEW_MESSAGE": "Паёми нав дар сӯҳбате, ки шумо иштирок доред",
+      "SLA_MISSED_FIRST_RESPONSE": "Муҳлати аввалини посух тибқи SLA риоя нашуд",
+      "SLA_MISSED_NEXT_RESPONSE": "Муҳлати посухи навбатӣ тибқи SLA риоя нашуд",
+      "SLA_MISSED_RESOLUTION": "Муҳлати ҳалли сӯҳбат тибқи SLA риоя нашуд"
+    },
+    "TYPES_NEXT": {
+      "CONVERSATION_MENTION": "Ёдовариҳо",
+      "CONVERSATION_ASSIGNMENT": "Ба шумо таъин шудааст",
+      "CONVERSATION_CREATION": "Сӯҳбати нав",
+      "SLA_MISSED_FIRST_RESPONSE": "Вайроншавии SLA",
+      "SLA_MISSED_NEXT_RESPONSE": "Вайроншавии SLA",
+      "SLA_MISSED_RESOLUTION": "Вайроншавии SLA",
+      "PARTICIPATING_CONVERSATION_NEW_MESSAGE": "Паёми нав",
+      "ASSIGNED_CONVERSATION_NEW_MESSAGE": "Паёми нав",
+      "SNOOZED_UNTIL": "Ба таъхир андохта шуд то {time}",
+      "SNOOZED_ENDS": "Мӯҳлати таъхир ба охир расид"
+    },
+    "NO_CONTENT": "Мундариҷа вуҷуд надорад",
+    "MENU_ITEM": {
+      "MARK_AS_READ": "Хондашуда ҳисобидан",
+      "MARK_AS_UNREAD": "Нохонда ҳисобидан",
+      "SNOOZE": "Ба таъхир андохтан",
+      "DELETE": "Нест кардан",
+      "MARK_ALL_READ": "Ҳамаро хондашуда ҳисобидан",
+      "DELETE_ALL": "Ҳамаро нест кардан",
+      "DELETE_ALL_READ": "Ҳамаи хондашудаҳоро нест кардан"
+    },
+    "DISPLAY_MENU": {
+      "SORT": "Мураттабсозӣ",
+      "DISPLAY": "Намоиш :",
+      "SORT_OPTIONS": {
+        "NEWEST": "Аввал навтаринҳо",
+        "OLDEST": "Аввал куҳнатаринҳо",
+        "PRIORITY": "Афзалият"
+      },
+      "DISPLAY_OPTIONS": {
+        "SNOOZED": "Ба таъхир андохташуда",
+        "READ": "Хондашуда",
+        "LABELS": "Барчаспҳо",
+        "CONVERSATION_ID": "ID сӯҳбат"
+      }
+    },
+    "ALERTS": {
+      "MARK_AS_READ": "Огоҳинома ҳамчун хондашуда қайд шуд",
+      "MARK_AS_UNREAD": "Огоҳинома ҳамчун нохонда қайд шуд",
+      "SNOOZE": "Огоҳинома ба таъхир андохта шуд",
+      "DELETE": "Огоҳинома нест карда шуд",
+      "MARK_ALL_READ": "Ҳамаи огоҳиномаҳо хондашуда ҳисобида шуданд",
+      "DELETE_ALL": "Ҳамаи огоҳиномаҳо нест карда шуданд",
+      "DELETE_ALL_READ": "Ҳамаи огоҳиномаҳои хондашуда нест карда шуданд"
+    },
+    "REAUTHORIZE": {
+      "TITLE": "Тасдиқи дубора лозим аст",
+      "DESCRIPTION": "Пайвасти шумо бо WhatsApp қатъ гашт. Барои идома додани паёмнависӣ лутфан дубора пайваст шавед.",
+      "BUTTON_TEXT": "Пайвастшавии дубора ба WhatsApp",
+      "LOADING_FACEBOOK": "Боргирии Facebook SDK...",
+      "SUCCESS": "WhatsApp бомуваффақият пайваст карда шуд",
+      "ERROR": "Пайвасти WhatsApp ноком шуд. Лутфан, аз нав санҷед.",
+      "WHATSAPP_APP_ID_MISSING": "WhatsApp App ID танзим нашудааст.",
+      "WHATSAPP_CONFIG_ID_MISSING": "WhatsApp Configuration ID танзим нашудааст.",
+      "CONFIGURATION_ERROR": "Хатогии танзимот ҳангоми пайвастшавӣ рух дод.",
+      "FACEBOOK_LOAD_ERROR": "Боргирии Facebook SDK ноком шуд.",
+      "TROUBLESHOOTING": {
+        "TITLE": "Ҳалли мушкилот",
+        "POPUP_BLOCKED": "Боварӣ ҳосил кунед, ки равзанаҳои иловагӣ иҷозат дода шудаанд",
+        "COOKIES": "Cookies-ҳои тарафи сеюм бояд фаъол бошанд",
+        "ADMIN_ACCESS": "Ба шумо дастрасии админ ба WhatsApp Business лозим аст"
+      }
+    }
+  }
+}

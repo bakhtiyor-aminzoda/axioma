@@ -36,6 +36,7 @@ import th from './locale/th';
 import tr from './locale/tr';
 import uk from './locale/uk';
 import uz from './locale/uz';
+import tg from './locale/tg';
 import vi from './locale/vi';
 import zh_CN from './locale/zh_CN';
 import zh_TW from './locale/zh_TW';
@@ -81,6 +82,7 @@ export default {
   tr,
   uk,
   uz,
+  tg,
   vi,
   zh_CN,
   zh_TW,

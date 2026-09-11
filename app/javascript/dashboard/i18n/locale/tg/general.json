@@ -1,0 +1,19 @@
+{
+  "GENERAL": {
+    "SHOWING_RESULTS": "Нишон додани {firstIndex}-{lastIndex} аз {totalCount} элемент",
+    "PHONE_INPUT": {
+      "PLACEHOLDER": "Ҷустуҷӯ",
+      "EMPTY_STATE": "Ҳеҷ чиз ёфт нашуд"
+    },
+    "CLOSE": "Пӯшидан",
+    "BETA": "Бета",
+    "BETA_DESCRIPTION": "Ин хусусият дар ҳолати озмоишӣ қарор дорад ва такмил меёбад.",
+    "ACCEPT": "Қабул кардан",
+    "DISCARD": "Бекор кардан",
+    "PREFERRED": "Афзалтар"
+  },
+  "CHOICE_TOGGLE": {
+    "YES": "Ҳа",
+    "NO": "Не"
+  }
+}

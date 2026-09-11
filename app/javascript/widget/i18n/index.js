@@ -37,6 +37,7 @@ import th from './locale/th.json';
 import tr from './locale/tr.json';
 import uk from './locale/uk.json';
 import uz from './locale/uz.json';
+import tg from './locale/tg.json';
 import vi from './locale/vi.json';
 import zh_CN from './locale/zh_CN.json';
 import zh_TW from './locale/zh_TW.json';
@@ -81,6 +82,7 @@ export default {
   tr,
   uk,
   uz,
+  tg,
   vi,
   zh_CN,
   zh_TW,

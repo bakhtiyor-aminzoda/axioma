@@ -1,0 +1,150 @@
+{
+  "CHAT_LIST": {
+    "LOADING": "Сӯҳбатҳо боргирӣ мешаванд",
+    "LOAD_MORE_CONVERSATIONS": "Боргирии бештари сӯҳбатҳо",
+    "EOF": "Ҳамаи сӯҳбатҳо боргирӣ шуданд 🎉",
+    "LIST": {
+      "404": "Дар ин гурӯҳ сӯҳбати фаъол вуҷуд надорад."
+    },
+    "FAILED_TO_SEND": "Ирсол нашуд",
+    "FETCH_ERROR": "Боргирии сӯҳбатҳо ноком шуд. Лутфан, аз нав кӯшиш кунед.",
+    "TAB_HEADING": "Сӯҳбатҳо",
+    "MENTION_HEADING": "Ёдовариҳо",
+    "UNATTENDED_HEADING": "Беҷавоб",
+    "SEARCH": {
+      "INPUT": "Ҷустуҷӯи шахсон, сӯҳбатҳо, ҷавобҳои омода..."
+    },
+    "FILTER_ALL": "Ҳама",
+    "ASSIGNEE_TYPE_TABS": {
+      "me": "Аз они ман",
+      "unassigned": "Таъиннашуда",
+      "all": "Ҳама"
+    },
+    "CHAT_STATUS_FILTER_ITEMS": {
+      "open": {
+        "TEXT": "Кушода"
+      },
+      "resolved": {
+        "TEXT": "Ҳалшуда"
+      },
+      "pending": {
+        "TEXT": "Дар интизорӣ"
+      },
+      "snoozed": {
+        "TEXT": "Ба таъхир андохта"
+      },
+      "all": {
+        "TEXT": "Ҳама"
+      }
+    },
+    "VIEW_FILTER": "Намоиш",
+    "SORT_TOOLTIP_LABEL": "Мураттабсозии сӯҳбатҳо",
+    "CHAT_SORT": {
+      "STATUS": "Ҳолат",
+      "ORDER_BY": "Мураттабсозӣ аз рӯи"
+    },
+    "CHAT_TIME_STAMP": {
+      "CREATED": {
+        "LATEST": "Сохта шуд",
+        "OLDEST": "Санаи эҷод:"
+      },
+      "LAST_ACTIVITY": {
+        "NOT_ACTIVE": "Фаъолияти охирин:",
+        "ACTIVE": "Фаъолияти охирин"
+      }
+    },
+    "SORT_ORDER_ITEMS": {
+      "last_activity_at_asc": {
+        "TEXT": "Фаъолияти охирин: аввал куҳнаҳо"
+      },
+      "last_activity_at_desc": {
+        "TEXT": "Фаъолияти охирин: аввал навҳо"
+      },
+      "created_at_desc": {
+        "TEXT": "Эҷод шуд: аввал навҳо"
+      },
+      "created_at_asc": {
+        "TEXT": "Эҷод шуд: аввал куҳнаҳо"
+      },
+      "priority_desc": {
+        "TEXT": "Афзалият: аввал баланд"
+      },
+      "priority_asc": {
+        "TEXT": "Афзалият: аввал паст"
+      },
+      "waiting_since_asc": {
+        "TEXT": "Интизори ҷавоб: аввал куҳнаҳо"
+      },
+      "waiting_since_desc": {
+        "TEXT": "Интизори ҷавоб: аввал навҳо"
+      },
+      "priority_desc_created_at_asc": {
+        "TEXT": "Афзалият: аввал баланд, Сана: аввал куҳна"
+      },
+      "unread": {
+        "TEXT": "Шумораи нохондаҳо: аввал бештар"
+      }
+    },
+    "ATTACHMENTS": {
+      "image": {
+        "CONTENT": "Тасвир"
+      },
+      "audio": {
+        "CONTENT": "Паёми овозӣ"
+      },
+      "video": {
+        "CONTENT": "Видео"
+      },
+      "file": {
+        "CONTENT": "Файли замимашуда"
+      },
+      "location": {
+        "CONTENT": "Мавқеъ"
+      },
+      "ig_reel": {
+        "CONTENT": "Instagram Reel"
+      },
+      "fallback": {
+        "CONTENT": "пайвандро фиристод"
+      },
+      "contact": {
+        "CONTENT": "Мухотаб"
+      },
+      "embed": {
+        "CONTENT": "Мундариҷаи дохилӣ"
+      }
+    },
+    "CHAT_SORT_BY_FILTER": {
+      "TITLE": "Мураттабсозии сӯҳбат",
+      "DROPDOWN_TITLE": "Мураттабсозӣ аз рӯи",
+      "ITEMS": {
+        "LATEST": {
+          "NAME": "Фаъолияти охирин",
+          "LABEL": "Фаъолияти охирин"
+        },
+        "CREATED_AT": {
+          "NAME": "Санаи эҷод",
+          "LABEL": "Санаи эҷод"
+        },
+        "LAST_USER_MESSAGE_AT": {
+          "NAME": "Паёми охирини корбар",
+          "LABEL": "Паёми охирин"
+        }
+      }
+    },
+    "RECEIVED_VIA_EMAIL": "Аз почтаи электронӣ гирифта шуд",
+    "VIEW_TWEET_IN_TWITTER": "Дар Twitter дидан",
+    "REPLY_TO_TWEET": "Ҷавоб додан ба твит",
+    "LINK_TO_STORY": "Гузариш ба Instagram Story",
+    "SENT": "Бомуваффақият ирсол шуд",
+    "READ": "Хонда шуд",
+    "DELIVERED": "Расонида шуд",
+    "NO_MESSAGES": "Паёмҳо нестанд",
+    "NO_CONTENT": "Мундариҷа вуҷуд надорад",
+    "HIDE_QUOTED_TEXT": "Пинҳон кардани матни иқтибос",
+    "SHOW_QUOTED_TEXT": "Нишон додани матни иқтибос",
+    "MESSAGE_READ": "Хонда шуд",
+    "SENDING": "Дар ҳоли ирсол",
+    "UNREAD_COUNT_OVERFLOW": "9+"
+  }
+}
