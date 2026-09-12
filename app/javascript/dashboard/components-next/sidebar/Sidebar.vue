@@ -500,99 +500,100 @@ const menuItems = computed(() => {
         },
       ],
     },
-    {
-      name: 'Captain',
-      icon: 'i-woot-captain',
-      label: t('SIDEBAR.CAPTAIN'),
-      activeOn: ['captain_assistants_create_index'],
-      children: [
-        {
-          name: 'Overview',
-          label: t('SIDEBAR.CAPTAIN_OVERVIEW'),
-          activeOn: ['captain_assistants_overview_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_overview_index',
-          }),
-        },
-        {
-          name: 'FAQs',
-          label: t('SIDEBAR.CAPTAIN_RESPONSES'),
-          activeOn: [
-            'captain_assistants_responses_index',
-            'captain_assistants_faq_suggestions',
-          ],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_responses_index',
-          }),
-        },
-        {
-          name: 'Documents',
-          label: t('SIDEBAR.CAPTAIN_DOCUMENTS'),
-          activeOn: ['captain_assistants_documents_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_documents_index',
-          }),
-        },
-        {
-          name: 'Scenarios',
-          label: t('SIDEBAR.CAPTAIN_SCENARIOS'),
-          activeOn: ['captain_assistants_scenarios_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_scenarios_index',
-          }),
-        },
-        {
-          name: 'Playground',
-          label: t('SIDEBAR.CAPTAIN_PLAYGROUND'),
-          activeOn: ['captain_assistants_playground_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_playground_index',
-          }),
-        },
-        {
-          name: 'Inboxes',
-          label: t('SIDEBAR.CAPTAIN_INBOXES'),
-          activeOn: ['captain_assistants_inboxes_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_inboxes_index',
-          }),
-        },
-        {
-          name: 'Tools',
-          label: t('SIDEBAR.CAPTAIN_TOOLS'),
-          activeOn: ['captain_tools_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_tools_index',
-          }),
-        },
-        {
-          name: 'Settings',
-          label: t('SIDEBAR.CAPTAIN_SETTINGS'),
-          activeOn: [
-            'captain_assistants_settings_index',
-            'captain_assistants_settings_system_index',
-            'captain_assistants_settings_audience_index',
-            'captain_assistants_settings_schedule_index',
-            'captain_assistants_guidelines_index',
-            'captain_assistants_guardrails_index',
-          ],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_settings_index',
-          }),
-        },
-      ],
-    },
-    ...(isCallsAvailable.value
-      ? [
-          {
-            name: 'Calls',
-            label: t('SIDEBAR.CALLS'),
-            icon: 'i-lucide-phone',
-            to: accountScopedRoute('calls_dashboard_index'),
-            activeOn: ['calls_dashboard_index'],
-          },
-        ]
-      : []),
+    // TEMPORARILY DISABLED FOR AXIOMA MVP (can be re-enabled when needed):
+    // {
+    //   name: 'Captain',
+    //   icon: 'i-woot-captain',
+    //   label: t('SIDEBAR.CAPTAIN'),
+    //   activeOn: ['captain_assistants_create_index'],
+    //   children: [
+    //     {
+    //       name: 'Overview',
+    //       label: t('SIDEBAR.CAPTAIN_OVERVIEW'),
+    //       activeOn: ['captain_assistants_overview_index'],
+    //       to: accountScopedRoute('captain_assistants_index', {
+    //         navigationPath: 'captain_assistants_overview_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'FAQs',
+    //       label: t('SIDEBAR.CAPTAIN_RESPONSES'),
+    //       activeOn: [
+    //         'captain_assistants_responses_index',
+    //         'captain_assistants_faq_suggestions',
+    //       ],
+    //       to: accountScopedRoute('captain_assistants_index', {
+    //         navigationPath: 'captain_assistants_responses_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'Documents',
+    //       label: t('SIDEBAR.CAPTAIN_DOCUMENTS'),
+    //       activeOn: ['captain_assistants_documents_index'],
+    //       to: accountScopedRoute('captain_assistants_index', {
+    //         navigationPath: 'captain_assistants_documents_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'Scenarios',
+    //       label: t('SIDEBAR.CAPTAIN_SCENARIOS'),
+    //       activeOn: ['captain_assistants_scenarios_index'],
+    //       to: accountScopedRoute('captain_assistants_index', {
+    //         navigationPath: 'captain_assistants_scenarios_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'Playground',
+    //       label: t('SIDEBAR.CAPTAIN_PLAYGROUND'),
+    //       activeOn: ['captain_assistants_playground_index'],
+    //       to: accountScopedRoute('captain_assistants_index', {
+    //         navigationPath: 'captain_assistants_playground_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'Inboxes',
+    //       label: t('SIDEBAR.CAPTAIN_INBOXES'),
+    //       activeOn: ['captain_assistants_inboxes_index'],
+    //       to: accountScopedRoute('captain_assistants_index', {
+    //         navigationPath: 'captain_assistants_inboxes_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'Tools',
+    //       label: t('SIDEBAR.CAPTAIN_TOOLS'),
+    //       activeOn: ['captain_tools_index'],
+    //       to: accountScopedRoute('captain_assistants_index', {
+    //         navigationPath: 'captain_tools_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'Settings',
+    //       label: t('SIDEBAR.CAPTAIN_SETTINGS'),
+    //       activeOn: [
+    //         'captain_assistants_settings_index',
+    //         'captain_assistants_settings_system_index',
+    //         'captain_assistants_settings_audience_index',
+    //         'captain_assistants_settings_schedule_index',
+    //         'captain_assistants_guidelines_index',
+    //         'captain_assistants_guardrails_index',
+    //       ],
+    //       to: accountScopedRoute('captain_assistants_index', {
+    //         navigationPath: 'captain_assistants_settings_index',
+    //       }),
+    //     },
+    //   ],
+    // },
+    // ...(isCallsAvailable.value
+    //   ? [
+    //       {
+    //         name: 'Calls',
+    //         label: t('SIDEBAR.CALLS'),
+    //         icon: 'i-lucide-phone',
+    //         to: accountScopedRoute('calls_dashboard_index'),
+    //         activeOn: ['calls_dashboard_index'],
+    //       },
+    //     ]
+    //   : []),
     {
       name: 'Contacts',
       label: t('SIDEBAR.CONTACTS'),
@@ -660,23 +661,24 @@ const menuItems = computed(() => {
         },
       ],
     },
-    {
-      name: 'Companies',
-      label: t('SIDEBAR.COMPANIES'),
-      icon: 'i-lucide-building-2',
-      children: [
-        {
-          name: 'All Companies',
-          label: t('SIDEBAR.ALL_COMPANIES'),
-          to: accountScopedRoute(
-            'companies_dashboard_index',
-            {},
-            { page: 1, search: undefined }
-          ),
-          activeOn: ['companies_dashboard_index', 'companies_dashboard_show'],
-        },
-      ],
-    },
+    // TEMPORARILY DISABLED FOR AXIOMA MVP:
+    // {
+    //   name: 'Companies',
+    //   label: t('SIDEBAR.COMPANIES'),
+    //   icon: 'i-lucide-building-2',
+    //   children: [
+    //     {
+    //       name: 'All Companies',
+    //       label: t('SIDEBAR.ALL_COMPANIES'),
+    //       to: accountScopedRoute(
+    //         'companies_dashboard_index',
+    //         {},
+    //         { page: 1, search: undefined }
+    //       ),
+    //       activeOn: ['companies_dashboard_index', 'companies_dashboard_show'],
+    //     },
+    //   ],
+    // },
     {
       name: 'Reports',
       label: t('SIDEBAR.REPORTS'),
@@ -710,75 +712,76 @@ const menuItems = computed(() => {
         },
       ],
     },
-    {
-      name: 'Campaigns',
-      label: t('SIDEBAR.CAMPAIGNS'),
-      icon: 'i-lucide-megaphone',
-      children: [
-        {
-          name: 'Live chat',
-          label: t('SIDEBAR.LIVE_CHAT'),
-          to: accountScopedRoute('campaigns_livechat_index'),
-        },
-        {
-          name: 'SMS',
-          label: t('SIDEBAR.SMS'),
-          to: accountScopedRoute('campaigns_sms_index'),
-        },
-        {
-          name: 'WhatsApp',
-          label: t('SIDEBAR.WHATSAPP'),
-          to: accountScopedRoute('campaigns_whatsapp_index'),
-        },
-      ],
-    },
-    {
-      name: 'Portals',
-      label: t('SIDEBAR.HELP_CENTER.TITLE'),
-      icon: 'i-lucide-library-big',
-      children: [
-        {
-          name: 'Articles',
-          label: t('SIDEBAR.HELP_CENTER.ARTICLES'),
-          activeOn: [
-            'portals_articles_index',
-            'portals_articles_new',
-            'portals_articles_edit',
-          ],
-          to: accountScopedRoute('portals_index', {
-            navigationPath: 'portals_articles_index',
-          }),
-        },
-        {
-          name: 'Categories',
-          label: t('SIDEBAR.HELP_CENTER.CATEGORIES'),
-          activeOn: [
-            'portals_categories_index',
-            'portals_categories_articles_index',
-            'portals_categories_articles_edit',
-          ],
-          to: accountScopedRoute('portals_index', {
-            navigationPath: 'portals_categories_index',
-          }),
-        },
-        {
-          name: 'Locales',
-          label: t('SIDEBAR.HELP_CENTER.LOCALES'),
-          activeOn: ['portals_locales_index'],
-          to: accountScopedRoute('portals_index', {
-            navigationPath: 'portals_locales_index',
-          }),
-        },
-        {
-          name: 'Settings',
-          label: t('SIDEBAR.HELP_CENTER.SETTINGS'),
-          activeOn: ['portals_settings_index'],
-          to: accountScopedRoute('portals_index', {
-            navigationPath: 'portals_settings_index',
-          }),
-        },
-      ],
-    },
+    // TEMPORARILY DISABLED FOR AXIOMA MVP:
+    // {
+    //   name: 'Campaigns',
+    //   label: t('SIDEBAR.CAMPAIGNS'),
+    //   icon: 'i-lucide-megaphone',
+    //   children: [
+    //     {
+    //       name: 'Live chat',
+    //       label: t('SIDEBAR.LIVE_CHAT'),
+    //       to: accountScopedRoute('campaigns_livechat_index'),
+    //     },
+    //     {
+    //       name: 'SMS',
+    //       label: t('SIDEBAR.SMS'),
+    //       to: accountScopedRoute('campaigns_sms_index'),
+    //     },
+    //     {
+    //       name: 'WhatsApp',
+    //       label: t('SIDEBAR.WHATSAPP'),
+    //       to: accountScopedRoute('campaigns_whatsapp_index'),
+    //     },
+    //   ],
+    // },
+    // {
+    //   name: 'Portals',
+    //   label: t('SIDEBAR.HELP_CENTER.TITLE'),
+    //   icon: 'i-lucide-library-big',
+    //   children: [
+    //     {
+    //       name: 'Articles',
+    //       label: t('SIDEBAR.HELP_CENTER.ARTICLES'),
+    //       activeOn: [
+    //         'portals_articles_index',
+    //         'portals_articles_new',
+    //         'portals_articles_edit',
+    //       ],
+    //       to: accountScopedRoute('portals_index', {
+    //         navigationPath: 'portals_articles_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'Categories',
+    //       label: t('SIDEBAR.HELP_CENTER.CATEGORIES'),
+    //       activeOn: [
+    //         'portals_categories_index',
+    //         'portals_categories_articles_index',
+    //         'portals_categories_articles_edit',
+    //       ],
+    //       to: accountScopedRoute('portals_index', {
+    //         navigationPath: 'portals_categories_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'Locales',
+    //       label: t('SIDEBAR.HELP_CENTER.LOCALES'),
+    //       activeOn: ['portals_locales_index'],
+    //       to: accountScopedRoute('portals_index', {
+    //         navigationPath: 'portals_locales_index',
+    //       }),
+    //     },
+    //     {
+    //       name: 'Settings',
+    //       label: t('SIDEBAR.HELP_CENTER.SETTINGS'),
+    //       activeOn: ['portals_settings_index'],
+    //       to: accountScopedRoute('portals_index', {
+    //         navigationPath: 'portals_settings_index',
+    //       }),
+    //     },
+    //   ],
+    // },
     {
       name: 'Settings',
       label: t('SIDEBAR.SETTINGS'),
@@ -818,25 +821,25 @@ const menuItems = computed(() => {
           ],
           to: accountScopedRoute('settings_teams_list'),
         },
-        ...(hasAdvancedAssignment.value
-          ? [
-              {
-                name: 'Settings Agent Assignment',
-                label: t('SIDEBAR.AGENT_ASSIGNMENT'),
-                icon: 'i-lucide-user-cog',
-                activeOn: [
-                  'assignment_policy_index',
-                  'agent_assignment_policy_index',
-                  'agent_assignment_policy_create',
-                  'agent_assignment_policy_edit',
-                  'agent_capacity_policy_index',
-                  'agent_capacity_policy_create',
-                  'agent_capacity_policy_edit',
-                ],
-                to: accountScopedRoute('assignment_policy_index'),
-              },
-            ]
-          : []),
+        // ...(hasAdvancedAssignment.value
+        //   ? [
+        //       {
+        //         name: 'Settings Agent Assignment',
+        //         label: t('SIDEBAR.AGENT_ASSIGNMENT'),
+        //         icon: 'i-lucide-user-cog',
+        //         activeOn: [
+        //           'assignment_policy_index',
+        //           'agent_assignment_policy_index',
+        //           'agent_assignment_policy_create',
+        //           'agent_assignment_policy_edit',
+        //           'agent_capacity_policy_index',
+        //           'agent_capacity_policy_create',
+        //           'agent_capacity_policy_edit',
+        //         ],
+        //         to: accountScopedRoute('assignment_policy_index'),
+        //       },
+        //     ]
+        //   : []),
         {
           name: 'Settings Inboxes',
           label: t('SIDEBAR.INBOXES'),
@@ -851,12 +854,12 @@ const menuItems = computed(() => {
           ],
           to: accountScopedRoute('settings_inbox_list'),
         },
-        {
-          name: 'Settings Templates',
-          label: t('SIDEBAR.WHATSAPP_TEMPLATES'),
-          icon: 'i-lucide-layout-template',
-          to: accountScopedRoute('settings_templates'),
-        },
+        // {
+        //   name: 'Settings Templates',
+        //   label: t('SIDEBAR.WHATSAPP_TEMPLATES'),
+        //   icon: 'i-lucide-layout-template',
+        //   to: accountScopedRoute('settings_templates'),
+        // },
         {
           name: 'Settings Labels',
           label: t('SIDEBAR.LABELS'),
@@ -899,52 +902,52 @@ const menuItems = computed(() => {
           icon: 'i-lucide-blocks',
           to: accountScopedRoute('settings_applications'),
         },
-        ...(hasDataImport.value
-          ? [
-              {
-                name: 'Settings Data',
-                label: t('SIDEBAR.DATA'),
-                icon: 'i-lucide-database',
-                to: accountScopedRoute('settings_data_imports'),
-              },
-            ]
-          : []),
-        {
-          name: 'Settings Audit Logs',
-          label: t('SIDEBAR.AUDIT_LOGS'),
-          icon: 'i-lucide-briefcase',
-          to: accountScopedRoute('auditlogs_list'),
-        },
-        {
-          name: 'Settings Custom Roles',
-          label: t('SIDEBAR.CUSTOM_ROLES'),
-          icon: 'i-lucide-shield-plus',
-          to: accountScopedRoute('custom_roles_list'),
-        },
-        {
-          name: 'Settings Sla',
-          label: t('SIDEBAR.SLA'),
-          icon: 'i-lucide-clock-alert',
-          to: accountScopedRoute('sla_list'),
-        },
-        {
-          name: 'Conversation Workflow',
-          label: t('SIDEBAR.CONVERSATION_WORKFLOW'),
-          icon: 'i-lucide-workflow',
-          to: accountScopedRoute('conversation_workflow_index'),
-        },
-        {
-          name: 'Settings Security',
-          label: t('SIDEBAR.SECURITY'),
-          icon: 'i-lucide-shield',
-          to: accountScopedRoute('security_settings_index'),
-        },
-        {
-          name: 'Settings Billing',
-          label: t('SIDEBAR.BILLING'),
-          icon: 'i-lucide-credit-card',
-          to: accountScopedRoute('billing_settings_index'),
-        },
+        // ...(hasDataImport.value
+        //   ? [
+        //       {
+        //         name: 'Settings Data',
+        //         label: t('SIDEBAR.DATA'),
+        //         icon: 'i-lucide-database',
+        //         to: accountScopedRoute('settings_data_imports'),
+        //       },
+        //     ]
+        //   : []),
+        // {
+        //   name: 'Settings Audit Logs',
+        //   label: t('SIDEBAR.AUDIT_LOGS'),
+        //   icon: 'i-lucide-briefcase',
+        //   to: accountScopedRoute('auditlogs_list'),
+        // },
+        // {
+        //   name: 'Settings Custom Roles',
+        //   label: t('SIDEBAR.CUSTOM_ROLES'),
+        //   icon: 'i-lucide-shield-plus',
+        //   to: accountScopedRoute('custom_roles_list'),
+        // },
+        // {
+        //   name: 'Settings Sla',
+        //   label: t('SIDEBAR.SLA'),
+        //   icon: 'i-lucide-clock-alert',
+        //   to: accountScopedRoute('sla_list'),
+        // },
+        // {
+        //   name: 'Conversation Workflow',
+        //   label: t('SIDEBAR.CONVERSATION_WORKFLOW'),
+        //   icon: 'i-lucide-workflow',
+        //   to: accountScopedRoute('conversation_workflow_index'),
+        // },
+        // {
+        //   name: 'Settings Security',
+        //   label: t('SIDEBAR.SECURITY'),
+        //   icon: 'i-lucide-shield',
+        //   to: accountScopedRoute('security_settings_index'),
+        // },
+        // {
+        //   name: 'Settings Billing',
+        //   label: t('SIDEBAR.BILLING'),
+        //   icon: 'i-lucide-credit-card',
+        //   to: accountScopedRoute('billing_settings_index'),
+        // },
       ],
     },
   ];
