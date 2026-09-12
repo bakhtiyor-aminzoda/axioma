@@ -1,46 +1,36 @@
-<svg width="2559" height="581" viewBox="0 0 2559 581" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="1480" height="320" viewBox="0 0 1480 320" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="axiom-logo-grad-dark" x1="60" y1="50" x2="540" y2="530" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1E3A8A" />
-      <stop offset="50%" stop-color="#2563EB" />
-      <stop offset="100%" stop-color="#06B6D4" />
-    </linearGradient>
-    <linearGradient id="axiom-white-grad-dark" x1="200" y1="140" x2="380" y2="440" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FFFFFF" />
-      <stop offset="100%" stop-color="#E0F2FE" />
+    <linearGradient id="ax-logo-grad" x1="40" y1="20" x2="280" y2="280" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="55%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1D4ED8" />
     </linearGradient>
   </defs>
 
-  <!-- Squircle Emblem -->
-  <rect x="60" y="50" width="480" height="480" rx="120" fill="url(#axiom-logo-grad-dark)" />
-  <rect x="68" y="58" width="464" height="464" rx="112" stroke="white" stroke-opacity="0.25" stroke-width="8" />
+  <!-- Monogram Icon (x: 20..280, y: 20..280) -->
+  <g transform="translate(10, 10)">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M150 24L34 266H96L129 198H171L204 266H266L150 24ZM150 126L132 166H168L150 126Z" fill="url(#ax-logo-grad)" />
+    <rect x="98" y="176" width="104" height="16" rx="8" fill="#FFFFFF" />
+  </g>
 
-  <!-- Monogram A in Emblem -->
-  <path d="M300 145L185 415H250L300 290L350 415H415L300 145Z" fill="url(#axiom-white-grad-dark)" />
-  <rect x="232" y="340" width="136" height="34" rx="17" fill="#38BDF8" />
-  <circle cx="300" cy="357" r="10" fill="#0369A1" />
+  <!-- Wordmark: AXIOMA (Precision Geometry Vectors) -->
+  <g fill="#FFFFFF" transform="translate(340, 75)">
+    <!-- A (0..120) -->
+    <path d="M60 0L0 170H38L53 126H97L112 170H150L90 0H60ZM63 94L75 56L87 94H63Z" />
 
-  <!-- AXIOMA Wordmark (White for dark theme) -->
-  <!-- Letter A -->
-  <path d="M755 140L635 420H705L755 295L805 420H875L755 140Z" fill="#FFFFFF" />
-  <rect x="692" y="340" width="126" height="32" rx="16" fill="#38BDF8" />
+    <!-- X (180..320) -->
+    <path d="M180 0H220L250 68L280 0H320L270 85L325 170H285L250 102L215 170H175L230 85L180 0Z" />
 
-  <!-- Letter X -->
-  <path d="M920 140H995L1070 268L1145 140H1220L1110 300L1225 420H1150L1070 332L990 420H915L1030 300L920 140Z" fill="#FFFFFF" />
+    <!-- I (355..390) -->
+    <path d="M355 0H392V170H355V0Z" />
 
-  <!-- Letter I -->
-  <rect x="1275" y="140" width="70" height="280" rx="16" fill="#FFFFFF" />
+    <!-- O (425..585) -->
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M505 0C455 0 425 38 425 85C425 132 455 170 505 170C555 170 585 132 585 85C585 38 555 0 505 0ZM505 34C532 34 547 55 547 85C547 115 532 136 505 136C478 136 463 115 463 85C463 55 478 34 505 34Z" />
 
-  <!-- Letter O -->
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M1545 140C1445 140 1385 200 1385 280C1385 360 1445 420 1545 420C1645 420 1705 360 1705 280C1705 200 1645 140 1545 140ZM1545 205C1598 205 1635 238 1635 280C1635 322 1598 355 1545 355C1492 355 1455 322 1455 280C1455 238 1492 205 1545 205Z" fill="#FFFFFF" />
+    <!-- M (620..760) -->
+    <path d="M620 0H655L690 92L725 0H760V170H725V62L696 138H684L655 62V170H620V0Z" />
 
-  <!-- Letter M -->
-  <path d="M1750 140H1815L1900 305L1985 140H2050V420H1985V245L1900 405H1900L1815 245V420H1750V140Z" fill="#FFFFFF" />
-
-  <!-- Letter A -->
-  <path d="M2195 140L2075 420H2145L2195 295L2245 420H2315L2195 140Z" fill="#FFFFFF" />
-  <rect x="2132" y="340" width="126" height="32" rx="16" fill="#38BDF8" />
-
-  <!-- Subtitle: COMMUNICATION PLATFORM -->
-  <text x="640" y="475" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="700" letter-spacing="14" fill="#38BDF8">COMMUNICATION PLATFORM</text>
+    <!-- A (795..945) -->
+    <path d="M855 0L795 170H833L848 126H892L907 170H945L885 0H855ZM858 94L870 56L882 94H858Z" />
+  </g>
 </svg>

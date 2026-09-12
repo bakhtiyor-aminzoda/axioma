@@ -1,37 +1,19 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="axiom-bg-grad" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#1E3A8A" />
-      <stop offset="50%" stop-color="#2563EB" />
-      <stop offset="100%" stop-color="#06B6D4" />
-    </linearGradient>
-    <linearGradient id="axiom-accent-grad" x1="180" y1="120" x2="332" y2="400" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FFFFFF" />
-      <stop offset="100%" stop-color="#E0F2FE" />
-    </linearGradient>
-    <linearGradient id="axiom-bar-grad" x1="180" y1="310" x2="332" y2="350" gradientUnits="userSpaceOnUse">
+    <linearGradient id="ax-monogram-blue" x1="76" y1="52" x2="436" y2="440" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#38BDF8" />
-      <stop offset="100%" stop-color="#FFFFFF" />
+      <stop offset="55%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1D4ED8" />
     </linearGradient>
-    <filter id="axiom-glow" x="120" y="80" width="272" height="352" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="12" result="blur" />
+    <filter id="ax-glow" x="0" y="0" width="512" height="512" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="16" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
   </defs>
 
-  <!-- Squircle Base -->
-  <rect width="512" height="512" rx="128" fill="url(#axiom-bg-grad)" />
+  <!-- Base Monogram "A" with Optical Negative Space -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M256 56L68 444H168L220 336H292L344 444H444L256 56ZM256 220L228 284H284L256 220Z" fill="url(#ax-monogram-blue)" />
 
-  <!-- Inner Soft Glow Border -->
-  <rect x="8" y="8" width="496" height="496" rx="120" stroke="white" stroke-opacity="0.15" stroke-width="8" />
-
-  <!-- Geometric "A" Monogram -->
-  <g filter="url(#axiom-glow)">
-    <!-- Left Stem -->
-    <path d="M256 104L140 376H204L256 248L308 376H372L256 104Z" fill="url(#axiom-accent-grad)" />
-    <!-- Dynamic Floating Bridge (Node Connection) -->
-    <rect x="188" y="300" width="136" height="36" rx="18" fill="url(#axiom-bar-grad)" />
-    <!-- Central Pulse Node (Omnichannel Core) -->
-    <circle cx="256" cy="318" r="10" fill="#0284C7" />
-  </g>
+  <!-- The Convergence Pulse: Sleek Floating Horizontal Bar (Pure White) -->
+  <rect x="172" y="300" width="168" height="26" rx="13" fill="#FFFFFF" />
 </svg>
