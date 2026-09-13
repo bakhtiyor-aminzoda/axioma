@@ -114,9 +114,16 @@ class Account < ApplicationRecord
 
   before_validation :validate_limit_keys
   after_create_commit :notify_creation
+  after_create_commit :seed_axioma_defaults
   after_update_commit :clear_unread_conversation_counts_cache, if: :saved_change_to_feature_conversation_unread_counts?
   after_update :resume_delayed_automations, if: -> { saved_change_to_feature_delayed_automations? && feature_delayed_automations? }
   after_destroy :remove_account_sequences
+
+  def seed_axioma_defaults
+    Axioma::TemplateSeeder.seed_account(id)
+  rescue StandardError => e
+    Rails.logger.error "[Axioma Seeder] Failed to seed account ##{id}: #{e.message}"
+  end
 
   def agents
     users.where(account_users: { role: :agent })

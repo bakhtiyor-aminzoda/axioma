@@ -1,6 +1,8 @@
 # ==============================================================================
-# Nginx Configuration for Axioma (with WebSocket / ActionCable support)
-# Location: /etc/nginx/sites-available/axioma
+# Axioma Production Nginx Reverse Proxy Configuration
+# Supports: SSL, WebSockets (ActionCable), Evolution WhatsApp Gateway, File Uploads
+# Target path on server: /etc/nginx/sites-available/axioma
+# Enable with: ln -s /etc/nginx/sites-available/axioma /etc/nginx/sites-enabled/
 # ==============================================================================
 
 upstream axioma_app {
@@ -11,27 +13,45 @@ upstream evolution_app {
     server 127.0.0.1:8080 fail_timeout=0;
 }
 
+# ------------------------------------------------------------------------------
+# 1. HTTP -> HTTPS Redirect
+# ------------------------------------------------------------------------------
 server {
     listen 80;
-    server_name app.axioma.tj;
+    listen [::]:80;
+    server_name crm.axioma.tj api.axioma.tj app.axioma.tj;
 
-    # Redirect all HTTP to HTTPS
-    return 301 https://$host$request_uri;
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
 }
 
+# ------------------------------------------------------------------------------
+# 2. Axioma CRM Application (crm.axioma.tj)
+# ------------------------------------------------------------------------------
 server {
     listen 443 ssl http2;
-    server_name app.axioma.tj;
+    listen [::]:443 ssl http2;
+    server_name crm.axioma.tj app.axioma.tj;
 
-    # SSL Certificates (obtained via certbot --nginx -d app.axioma.tj)
-    # ssl_certificate /etc/letsencrypt/live/app.axioma.tj/fullchain.pem;
-    # ssl_certificate_key /etc/letsencrypt/live/app.axioma.tj/privkey.pem;
+    # SSL Certificates (managed via Certbot)
+    # ssl_certificate /etc/letsencrypt/live/crm.axioma.tj/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/crm.axioma.tj/privkey.pem;
+    # include /etc/letsencrypt/options-ssl-nginx.conf;
+    # ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
     client_max_body_size 64M;
     underscores_in_headers on;
 
-    # Compression for speed in Tajikistan
+    # Gzip Compression for fast mobile loading in Tajikistan
     gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied any;
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
 
     location / {
@@ -46,5 +66,34 @@ server {
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_read_timeout 86400;
+        proxy_send_timeout 86400;
+    }
+}
+
+# ------------------------------------------------------------------------------
+# 3. Evolution API WhatsApp Gateway (api.axioma.tj)
+# ------------------------------------------------------------------------------
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name api.axioma.tj;
+
+    # SSL Certificates (managed via Certbot)
+    # ssl_certificate /etc/letsencrypt/live/api.axioma.tj/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/api.axioma.tj/privkey.pem;
+
+    client_max_body_size 64M;
+
+    location / {
+        proxy_pass http://evolution_app;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # WebSocket Support for WhatsApp live connection
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
     }
 }

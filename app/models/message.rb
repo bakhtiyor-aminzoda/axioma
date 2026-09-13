@@ -405,7 +405,7 @@ class Message < ApplicationRecord
     return if conversation.muted?
     return unless incoming?
 
-    conversation.open! if conversation.snoozed?
+    conversation.open! if conversation.snoozed? || conversation.pending?
 
     reopen_resolved_conversation if conversation.resolved?
   end

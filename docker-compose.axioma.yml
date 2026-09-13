@@ -22,6 +22,7 @@ services:
       - INSTALLATION_NAME=Axioma
       - BRAND_NAME=Axioma
       - RAILS_SERVE_STATIC_FILES=true
+      - SAFE_FETCH_ALLOW_PRIVATE_NETWORK=true
     entrypoint: docker/entrypoints/rails.sh
     command: ['bundle', 'exec', 'rails', 's', '-p', '3000', '-b', '0.0.0.0']
 
@@ -34,6 +35,7 @@ services:
       - RAILS_ENV=production
       - INSTALLATION_NAME=Axioma
       - BRAND_NAME=Axioma
+      - SAFE_FETCH_ALLOW_PRIVATE_NETWORK=true
     command: ['bundle', 'exec', 'sidekiq', '-C', 'config/sidekiq.yml']
 
   postgres:
@@ -47,13 +49,13 @@ services:
     environment:
       - POSTGRES_DB=chatwoot_production
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-AxiomaSecurePass2026!}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   redis:
     image: redis:7-alpine
     container_name: axioma_redis
     restart: always
-    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD:-AxiomaRedis2026!}"]
+    command: ["redis-server", "--requirepass", "${REDIS_PASSWORD}"]
     volumes:
       - redis_data:/data
 
@@ -67,12 +69,12 @@ services:
     environment:
       - SERVER_URL=http://localhost:8080
       - DOCKER_ENV=true
-      - AUTHENTICATION_API_KEY=${EVOLUTION_API_KEY:-AxiomaEvolutionKey2026!}
+      - AUTHENTICATION_API_KEY=${EVOLUTION_API_KEY}
       - DATABASE_ENABLED=true
       - DATABASE_PROVIDER=postgresql
-      - DATABASE_CONNECTION_URI=postgresql://postgres:${POSTGRES_PASSWORD:-AxiomaSecurePass2026!}@postgres:5432/evolution?schema=public
+      - DATABASE_CONNECTION_URI=postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/evolution?schema=public
       - CACHE_REDIS_ENABLED=true
-      - CACHE_REDIS_URI=redis://:${REDIS_PASSWORD:-AxiomaRedis2026!}@redis:6379/1
+      - CACHE_REDIS_URI=redis://:${REDIS_PASSWORD}@redis:6379/1
       - CHATWOOT_ENABLED=true
     volumes:
       - evolution_instances:/evolution/instances
