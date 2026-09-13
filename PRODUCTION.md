@@ -1,4 +1,4 @@
-# 🚀 Axioma CRM — Production Deployment & Operations Guide
+﻿# 🚀 Axioma CRM — Production Operations Manual & Architecture
 
 > **Axioma CRM** — Единая система коммуникаций и воронки продаж для бизнеса Таджикистана.
 > Все сообщения (WhatsApp, Instagram, Telegram, Web chat) в одном рабочем пространстве для ваших операторов.
@@ -7,10 +7,10 @@
 
 ## 🏛 1. Архитектура MVP (Single-Node VPS)
 
-Рекомендованная конфигурация для первого этапа (10–50 бизнесов, 50–200 операторов):
+Рекомендованная конфигурация для первого коммерческого этапа (10–50 бизнесов, 50–200 операторов):
 * **Сервер:** 1 VPS (Ubuntu 22.04 / 24.04 LTS)
-* **Характеристики:** 4 vCPU, 8 GB RAM, 80–100 GB NVMe SSD (Hetzner / DigitalOcean / локальный ЦОД в ТЧ)
-* **Сеть & Порты:** 80 (HTTP), 443 (HTTPS), 22 (SSH). Порты БД (5432) и Redis (6379) закрыты внутри Docker-сети.
+* **Характеристики:** 4 vCPU, 8 GB RAM, 80–100 GB NVMe SSD (Hetzner, DigitalOcean или локальный ЦОД в ТЧ)
+* **Сеть & Порты:** 80 (HTTP), 443 (HTTPS), 22 (SSH). Порты БД (5432) и Redis (6379) строго закрыты внутри изолированной Docker-сети.
 
 ```
                   ┌──────────────────────────────────────────────┐
@@ -57,122 +57,196 @@
 
 ---
 
-## 📦 2. Используемые Docker-образы
+## 📦 2. Используемые Docker-образы и версионирование
 
-| Сервис | Образ | Назначение |
-| :--- | :--- | :--- |
-| **Axioma Web & Sidekiq** | `ghcr.io/bakhtiyor-aminzoda/axioma:latest` | CRM веб-интерфейс, REST API, ActionCable, фоновые задачи |
-| **PostgreSQL** | `pgvector/pgvector:pg16` | Основная база данных (мультитенантная изоляция) |
-| **Redis** | `redis:7-alpine` | Кэш, сессии, очереди Sidekiq |
-| **Evolution API** | `evoapicloud/evolution-api:latest` | WhatsApp шлюз для Таджикистана (QR-код и Baileys) |
-| **Reverse Proxy** | `nginx:alpine` или хостовый Nginx | SSL-терминация, gzip-сжатие, вебсокеты |
+| Сервис | Образ | Версионирование | Назначение |
+| :--- | :--- | :--- | :--- |
+| **Axioma Web & Sidekiq** | `ghcr.io/bakhtiyor-aminzoda/axioma:${AXIOMA_IMAGE_TAG}` | **Immutable Tag** (`v0.1.0` или git SHA) | CRM интерфейс, API, ActionCable, Sidekiq |
+| **PostgreSQL** | `pgvector/pgvector:pg16` | Фиксированная версия `pg16` | Мультитенантная база данных |
+| **Redis** | `redis:7-alpine` | `7-alpine` | Кэш, брокер сообщений, очереди |
+| **Evolution API** | `evoapicloud/evolution-api:latest` | `latest` (или pinned hash) | Шлюз WhatsApp (QR-код и Baileys) |
+| **Reverse Proxy** | Nginx на хосте | Ubuntu LTS pkg | SSL, HTTP/2, WebSocket proxy |
+
+> [!IMPORTANT]
+> **Никогда не используйте тег `:latest` на production-сервере.**
+> Если запустить `docker compose pull` с тегом `:latest`, сервер неконтролируемо обновится на последнюю сборку, что при наличии регрессий приведет к остановке сервиса у всех клиентов.
+> Всегда указывайте фиксированный релизный тег в `.env`, например: `AXIOMA_IMAGE_TAG=v0.1.0`.
 
 ---
 
-## 🚀 3. Быстрый запуск на сервере (Step-by-Step)
+## 🚀 3. CI/CD пайплайн и процесс выкатки (Release Flow)
 
-### Шаг 1. Подготовка сервера
-```bash
-# Клонирование репозитория или копирование директории deploy/
-git clone https://github.com/bakhtiyor-aminzoda/axioma.git /opt/axioma
-cd /opt/axioma
+Пайплайн разделен на предсказуемые этапы без деплоя напрямую из ветки разработки:
 
-# Запуск скрипта подготовки (установка Docker, настройка swap, firewall)
-chmod +x deploy/setup-server.sh
-sudo deploy/setup-server.sh
+```
+[develop] (Разработка и фичи)
+    │
+    ▼ (Pull Request + Тесты)
+[master] (Стабильный релизный код)
+    │
+    ▼ (git tag v0.1.0 && git push origin v0.1.0)
+[GitHub Actions] (Автоматическая сборка Docker-образа)
+    │
+    ▼
+[GHCR: ghcr.io/bakhtiyor-aminzoda/axioma:v0.1.0]
+    │
+    ▼ (VPS: указать AXIOMA_IMAGE_TAG=v0.1.0 в .env и docker compose pull)
+[Production VPS]
 ```
 
-### Шаг 2. Настройка переменных окружения
-```bash
-cp deploy/env.production.example .env
-nano .env
-```
-> **Обязательно заполните в `.env`:**
-> 1. `SECRET_KEY_BASE` — сгенерируйте через `openssl rand -hex 64`
-> 2. `POSTGRES_PASSWORD` — надежный пароль БД
-> 3. `REDIS_PASSWORD` — надежный пароль Redis
-> 4. `EVOLUTION_API_KEY` — ключ доступа к Evolution API
-> 5. `FRONTEND_URL` — `https://crm.axioma.tj`
+### Запуск на production-сервере:
+На самом VPS сервере **не обязательно держать git-репозиторий с веткой develop**. Достаточно иметь рабочую папку `/opt/axioma/` с файлами:
+1. `docker-compose.production.yaml`
+2. `.env` (с вашими боевыми секретами)
+3. Конфигурацией Nginx `/etc/nginx/sites-available/axioma`
 
-### Шаг 3. Запуск контейнеров
 ```bash
+# 1. Загрузить указанную версию
 docker compose -f docker-compose.production.yaml pull
+
+# 2. При первом запуске инициализировать базу
+docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:chatwoot_prepare
+
+# 3. Запустить контейнеры
 docker compose -f docker-compose.production.yaml up -d
 ```
 
-### Шаг 4. Инициализация базы данных (только при первом запуске)
-```bash
-docker compose -f docker-compose.production.yaml exec -T rails bundle exec rails db:chatwoot_prepare
-```
-
-### Шаг 5. Настройка Nginx и получение SSL (Let's Encrypt)
-```bash
-sudo cp deploy/nginx.conf.example /etc/nginx/sites-available/axioma
-sudo ln -s /etc/nginx/sites-available/axioma /etc/nginx/sites-enabled/
-sudo nginx -t
-
-# Получение SSL сертификатов:
-sudo certbot --nginx -d crm.axioma.tj -d api.axioma.tj
-sudo systemctl reload nginx
-```
-
 ---
 
-## 🔄 4. Процедура обновления (Zero-Downtime Update)
+## 🔄 4. Процедура обновления (Minimal Downtime Rolling Update)
 
-Когда в ветку `develop` или `master` пушатся изменения, GitHub Actions автоматически собирает новый образ в GHCR: `ghcr.io/bakhtiyor-aminzoda/axioma:latest`.
+> [!NOTE]
+> На одном VPS с одним экземпляром Puma и локальной базой данных **абсолютный Zero-Downtime технически невозможен**: перезапуск контейнера занимает 5–15 секунд.
+> Честное название для такой схемы — **Minimal Downtime Update** (минимальный простой во время планового окна обслуживания).
 
-Для обновления продакшн-сервера выполните:
-
+### Скрипт обновления на новую версию:
 ```bash
+#!/usr/bin/env bash
+set -e
 cd /opt/axioma
 
-# 1. Скачать свежий образ из GHCR
+# 1. Указать новую версию в .env (например AXIOMA_IMAGE_TAG=v0.1.1)
+# nano .env
+
+# 2. Скачать свежий проверенный образ
 docker compose -f docker-compose.production.yaml pull rails sidekiq
 
-# 2. Применить новые миграции БД (если были)
-docker compose -f docker-compose.production.yaml exec -T rails bundle exec rails db:migrate
+# 3. Применить миграции базы данных (если есть)
+docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:migrate
 
-# 3. Перезапустить веб и фоновые воркеры
+# 4. Пересоздать контейнеры с минимальным перерывом (~5-10 сек)
 docker compose -f docker-compose.production.yaml up -d --no-deps rails sidekiq
 
-# 4. Проверить статус
+# 5. Проверить статус
 docker compose -f docker-compose.production.yaml ps
 ```
 
 ---
 
-## 🛡️ 5. Production Security Checklist
+## 🛡️ 5. Безопасность и защита от SSRF
 
-- [x] **Изоляция мультитенантности (Account Isolation):** Проверена тестами — ни один запрос не имеет доступа к данным чужого аккаунта.
-- [x] **Защита баз данных:** Порты PostgreSQL (5432) и Redis (6379) закрыты от внешнего интернета и слушают только локальный/docker интерфейс.
-- [x] **Публичная регистрация:** `ENABLE_ACCOUNT_SIGNUP=false` — предотвращает несанкционированную регистрацию сторонних лиц.
-- [x] **Автоматическое открытие диалогов:** При входящем сообщении от клиента (`incoming`) диалог со статусом `pending` или `resolved` гарантированно открывается (`open`), исключая потерю обращений.
-- [x] **Секреты:** Все пароли и токены вынесены в `.env` (добавлен в `.gitignore`), в коде отсутствуют захардкоженные секреты.
-- [x] **Резервное копирование:** Настройте cron-дамп PostgreSQL:
-  ```bash
-  # Добавить в /etc/crontab:
-  0 3 * * * root docker exec axioma_postgres pg_dump -U postgres chatwoot_production | gzip > /opt/backups/axioma_$(date +\%Y\%m\%d).sql.gz
-  ```
+### Почему `SAFE_FETCH_ALLOW_PRIVATE_NETWORK` ОБЯЗАН быть `false`:
+- Модуль `SafeFetch` в Axioma используется при отправке исходящих Webhook'ов и скачивании аватарок/вложений по URL.
+- При `SAFE_FETCH_ALLOW_PRIVATE_NETWORK=true` отключается библиотека `ssrf_filter`. Любой администратор или пользователь, настроивший вебхук или указавший URL аватарки, мог бы совершить **SSRF-атаку** (Server-Side Request Forgery) на:
+  - `http://127.0.0.1:6379` (Redis — неавторизованные команды)
+  - `http://postgres:5432` (PostgreSQL)
+  - `http://169.254.169.254` (Cloud Metadata AWS/DO/Hetzner — кража токенов сервера)
+  - Внутренние Docker-контейнеры (`http://evolution_api:8080/instance/...`).
+- **Решение:** В продакшне `SAFE_FETCH_ALLOW_PRIVATE_NETWORK=false` включён по умолчанию. Все обращения к локальным и приватным сетям RFC1918 строго блокируются. Входящие сообщения из WhatsApp/Telegram идут через публичный Nginx с SSL, что исключает необходимость открывать приватную сеть.
 
 ---
 
-## 👥 6. Автоматическая инициализация аккаунтов (Axioma Onboarding)
+## 📱 6. Стратегия каналов WhatsApp (Dual Strategy)
 
-При создании любого нового бизнес-аккаунта модуль `Axioma::TemplateSeeder` автоматически создаёт:
-1. **Быстрые ответы (Quick Replies / Canned Responses):**
-   * На русском (`/привет`, `/наличие`, `/доставка`, `/заказ`, `/оплата`, `/чек_принят`, `/менеджер`)
-   * На таджикском (`/салом`, `/ҳасти`, `/интиқол`, `/дархост`, `/корт`, `/чек`, `/менеҷер`, `/рахмат`, `/нархнома`)
-2. **Метки и сегментация (Labels / Tags):**
-   * Статусные: `new`, `hot`, `vip`, `lead`, `wholesale`, `repeat`, `payment_pending`, `delivery`, `complaint`, `lost`
-   * Локализованные: `новый`, `в_работе`, `оплачено`, `лиди_гарм`, `дар_коркард`, `интизори_пардохт`
-3. **Категории и поля клиентов (Contact Custom Attributes):**
-   * Категория клиента (`client_category`: Новый, Потенциальный, Постоянный, VIP, Оптовый, Неактивный, Проблемный)
-   * Шаҳр / Город (`shahr`: Душанбе, Худжанд, Бохтар, Куляб и др.)
-   * Компания / Бренд (`nomi_shirkat`)
-   * Размер команды (`shumorai_operatoron`)
-   * Сумма сделки (`mablaghi_muomila`)
-   * Заметки (`qaydho`)
-4. **Стандартные отделы (Teams):**
-   * Отдел продаж («Шӯъбаи фурӯш»)
-   * Служба поддержки («Дастгирии техникӣ»)
+В коммерческом SaaS для Таджикистана Axioma поддерживает **двухуровневую архитектуру WhatsApp**:
+
+### Уровень 1: Официальный WhatsApp Cloud API (Meta Graph API)
+- **Для кого:** Средний и крупный бизнес (клиники, банки, ритейл-сети, дистрибьюторы).
+- **Плюсы:** 100% официальный канал, **нулевой риск блокировки номера**, подтверждённая зеленая галочка, официальные шаблоны рассылок от Meta, высокая пропускная способность (до 80 сообщений/сек).
+- **Подключение:** Через встроенный в Axioma канал `Channel::Whatsapp` с провайдером `whatsapp_cloud` (указывается `Phone Number ID` и `System User Access Token` из Meta Business Manager).
+
+### Уровень 2: Evolution API (QR-код через Baileys)
+- **Для кого:** Микробизнес и небольшие торговые точки, у которых ещё нет юридического лица или верификации в Facebook Business.
+- **Плюсы:** Быстрое подключение за 30 секунд сканированием QR-кода прямо со смартфона владельца.
+- **Риски:** Имитация WhatsApp Web. При агрессивном спаме или массовых не запрошенных рассылках алгоритмы Meta могут временно или навсегда заблокировать номер.
+- **Позиционирование:** Предоставляется с четким предупреждением: *"Подключение по QR-коду предназначено для обработки входящих обращений клиентов. Запрещено использовать для холодного спама"*.
+
+---
+
+## 🗄️ 7. Хранилище медиафайлов: Cloudflare R2 / AWS S3
+
+В Таджикистане клиенты массово отправляют **голосовые сообщения, фотографии чеков и товаров, PDF-накладные и короткие видео**.
+Хранить гигабайты медиафайлов на диске VPS не масштабируемо.
+
+Axioma поддерживает S3-совместимые объектные хранилища (идеально: **Cloudflare R2** благодаря нулевой стоимости исходящего трафика / \$0 Egress):
+
+```bash
+# Добавить в .env:
+ACTIVE_STORAGE_SERVICE=s3_compatible
+STORAGE_ACCESS_KEY_ID=<your_r2_access_key>
+STORAGE_SECRET_ACCESS_KEY=<your_r2_secret_key>
+STORAGE_REGION=auto
+STORAGE_BUCKET_NAME=axioma-media-production
+STORAGE_ENDPOINT=https://<account_id>.r2.cloudflarestorage.com
+STORAGE_FORCE_PATH_STYLE=true
+```
+
+---
+
+## 💾 8. Резервное копирование (Disaster Recovery)
+
+Локальные бэкапы на том же диске VPS бесполезны при физическом сбое сервера или повреждении файловой системы.
+Используется скрипт `deploy/backup-to-s3.sh`:
+
+1. Дамп PostgreSQL из Docker-контейнера (`pg_dump | gzip -9`).
+2. Архивирование файлов конфигурации (`.env`, `docker-compose.production.yaml`, Nginx conf).
+3. Синхронизация в удалённое облако (Cloudflare R2 / AWS S3) по протоколу S3.
+4. **Ротация GFS (Grandfather-Father-Son):**
+   - Ежедневные (Daily): хранятся 7 дней
+   - Еженедельные (Weekly): хранятся 4 недели
+   - Ежемесячные (Monthly): хранятся 3 месяца
+
+```bash
+# Настройка ежедневного запуска в 03:30 ночи:
+# Добавить в crontab:
+30 3 * * * /opt/axioma/deploy/backup-to-s3.sh >> /var/log/axioma_backup.log 2>&1
+```
+
+---
+
+## 👥 9. Шаблоны Axioma: Рекомендации, а не жёсткие ограничения
+
+Модуль `Axioma::TemplateSeeder` наполняет новый бизнес стартовым набором данных, но **не ограничивает его**:
+- Поле `client_category` (Категория клиента) выступает ключевым базовым полем сегментации (Новый, Потенциальный, VIP, Постоянный и т.д.).
+- Дополнительные поля (`shahr`, `nomi_shirkat`, `mablaghi_muomila`) создаются как **рекомендуемый отраслевой шаблон**.
+- Владелец бизнеса может в любой момент в разделе **Настройки -> Атрибуты** отредактировать, переименовать или удалить эти поля под свою сферу (например, стоматология может заменить их на «Врач», «Дата приёма», «Вид услуги»).
+
+---
+
+## 🎯 10. План End-to-End пилота: Следующий Milestone
+
+**Цель:** «Три сотрудника реального бизнеса работают полный рабочий день через Axioma, и ни одно клиентское сообщение не теряется».
+
+### Программа тестирования боевого дня:
+1. **Синхронизация устройств:**
+   - Оператор 1 (ноутбук, Chrome)
+   - Оператор 2 (смартфон, мобильный браузер PWA)
+   - Оператор 3 (ноутбук, Safari/Firefox)
+2. **Маршрутизация и предотвращение коллизий:**
+   - Приходит входящее сообщение в WhatsApp от тестового покупателя.
+   - Сообщение мгновенно появляется у всех трёх операторов.
+   - При открытии чата Оператором 1 остальные видят индикатор просмотра/печати, предотвращая отправку двух противоречивых ответов.
+3. **Жизненный цикл сделки:**
+   - Назначение ответственного оператора (Assignee).
+   - Использование быстрого ответа `/корт` и `/чек`.
+   - Простановка метки `лиди_гарм` и заполнение города (`shahr: Душанбе`).
+   - Добавление приватной внутренней заметки (Private Note) — проверка, что покупатель её не видит.
+4. **Auto-Reopen проверка:**
+   - Оператор переводит диалог в статус `pending` или `snoozed`.
+   - Покупатель присылает ответ через сутки — диалог обязан автоматически вернуться в статус `open` с уведомлением операторам.
+5. **Тест голосовых и медиа:**
+   - Отправка голосового сообщения на таджикском языке — проверка чистоты воспроизведения в плеере оператора.
+   - Отправка фото чека — проверка отображения превью и зума.
+6. **Тест отказоустойчивости:**
+   - Принудительный перезапуск контейнеров (`docker compose restart`).
+   - Проверка, что после перезапуска все диалоги, история и сессии операторов остались в сохранности.
