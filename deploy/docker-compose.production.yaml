@@ -82,8 +82,43 @@ services:
       - postgres
       - redis
 
+  # Axioma SaaS Backend: Admin Portal, Landing API, Outreach & WhatsApp Onboarding
+  backend:
+    build:
+      context: ../../axioma-landing
+      dockerfile: Dockerfile.backend
+    image: ghcr.io/bakhtiyor-aminzoda/axioma-backend:${AXIOMA_IMAGE_TAG:-latest}
+    container_name: axioma_backend
+    restart: always
+    ports:
+      - "127.0.0.1:5051:5051"
+    environment:
+      - PYTHONIOENCODING=utf-8
+      - AXIOMA_ADMIN_PORT=5051
+      - AXIOMA_ADMIN_USER=${AXIOMA_ADMIN_USER:-admin}
+      - AXIOMA_ADMIN_PASS=${AXIOMA_ADMIN_PASS}
+      - AXIOMA_SECRET_KEY=${AXIOMA_SECRET_KEY}
+      - CHATWOOT_URL=http://axioma_web:3000
+      - CHATWOOT_INTERNAL_URL=http://axioma_web:3000
+      - CHATWOOT_API_TOKEN=${CHATWOOT_API_TOKEN}
+      - EVOLUTION_URL=http://axioma_whatsapp_gateway:8080
+      - EVOLUTION_API_KEY=${EVOLUTION_API_KEY}
+      - EVOLUTION_INSTANCE=${EVOLUTION_INSTANCE:-Axioma_WhatsApp}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_ADMIN_CHAT_ID=${TELEGRAM_ADMIN_CHAT_ID}
+      - AXIOMA_ADMIN_PUBLIC_URL=https://admin.axioma.tj
+      - CHATWOOT_WEBHOOK_URL=http://axioma_backend:5051/webhooks/chatwoot
+    volumes:
+      - backend_data:/app/axioma_admin/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - rails
+      - evolution_api
+
 volumes:
   postgres_data:
   redis_data:
   storage_data:
   evolution_instances:
+  backend_data:
